@@ -25,20 +25,22 @@ app.prepare().then(() => {
   // ICO subdomain router
   const icoRouter = express.Router();
   icoRouter.get('*', (req, res) => {
-    return app.render(req, res, '/ico/app/page', req.query);
+    req.url = '/ico' + req.url; // according to the docs the secures the path starts with /ico
+    app.render(req, res, '/ico', req.query);
   });
 
   // Desktop subdomain router
   const desktopRouter = express.Router();
   desktopRouter.get('*', (req, res) => {
-    return app.render(req, res, '/desktop', req.query);
+    req.url = '/desktop' + req.url; // according to the docs this secures teh path starts with /desktop
+    app.render(req, res, '/desktop', req.query);
   });
 
-  // Use subdomain middleware
+  // middleware for the subdomain routers
   server.use(subdomain('ico', icoRouter));
   server.use(subdomain('desktop', desktopRouter));
 
-  // Main application routes
+  // routes for parent application
   server.get('/', (req, res) => {
     return app.render(req, res, '/', req.query);
   });
@@ -51,14 +53,7 @@ app.prepare().then(() => {
     return app.render(req, res, '/selection', req.query);
   });
 
-  // Define other specific routes if necessary
-  server.get('/ico', (req, res) => {
-    return app.render(req, res, '/ico', req.query);
-  });
-
-  server.get('/desktop', (req, res) => {
-    return app.render(req, res, '/desktop', req.query);
-  });
+  // Removed the catch all so there would be no feed-back loops
 
   const PORT = process.env.PORT || 3000;
   server.listen(PORT, (err) => {
