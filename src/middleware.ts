@@ -4,10 +4,6 @@ import { getValidSubdomain } from '@/utils/subdomain';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-export const config = {
-  matcher: ['/', '/ico/:path*', '/desktop/:path*'],
-};
-
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 

@@ -19,10 +19,22 @@ const nextConfig = {
     return [
       {
         source: '/ico/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'ico.localhost:3000'
+          },
+        ],
         destination: '/ico/:path*',
       },
       {
         source: '/desktop/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'desktop.localhost:3000'
+          },
+        ],
         destination: '/desktop/:path*',
       },
     ];
