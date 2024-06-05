@@ -1,4 +1,9 @@
 [
- { "subdomain": "ico" },
- { "subdomain": "desktop" }
-]
+    {
+      "subdomain": "ico"
+    },
+    {
+      "subdomain": "desktop"
+    }
+  ]
+  
