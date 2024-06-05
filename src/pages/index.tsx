@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import PreLoader from '../components/PreLoader';
 import { useRouter } from 'next/router';
 
@@ -12,20 +12,37 @@ const Home = () => {
       return;
     }
 
-    const timer = setTimeout(() => {
+    if (!sessionStorage.getItem('preloaderCompleted')) {
+      setLoading(true);
+    } else {
       setLoading(false);
-      router.push('/login');
-    }, 20000000);
-    return () => clearTimeout(timer);
+    }
   }, [router]);
 
-  if (router.pathname.startsWith('/ico') || router.pathname.startsWith('/desktop')) {
-    return null;
+  const handlePreloaderComplete = () => {
+    sessionStorage.setItem('preloaderCompleted', 'true');
+    setLoading(false);
+  };
+
+  let SubdomainComponent = null;
+
+  if (router.pathname.startsWith('/ico')) {
+    SubdomainComponent = React.lazy(() => import('@/pages/[subdomain]/ico'));
+  }
+
+  if (router.pathname.startsWith('/desktop')) {
+    SubdomainComponent = React.lazy(() => import('@/pages/[subdomain]/desktop'));
   }
 
   return (
     <div>
-      {loading && <PreLoader onComplete={() => setLoading(false)} />}
+      {loading && !SubdomainComponent ? (
+        <PreLoader onComplete={handlePreloaderComplete} />
+      ) : (
+        <Suspense fallback={<div>Loading...</div>}>
+          {SubdomainComponent ? <SubdomainComponent /> : null}
+        </Suspense>
+      )}
     </div>
   );
 };
