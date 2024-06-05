@@ -15,7 +15,11 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/assets/*": ["./public/assets/*"],
-      "@/ico/*": ["./src/ico/*"]
+      "@/ico/*": ["./src/ico/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/layouts/*": ["./src/layouts/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/pages/*": ["./src/pages/*"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "types": ["next", "node", "express", "cookie"]

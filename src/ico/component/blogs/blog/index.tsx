@@ -1,6 +1,6 @@
-import Breadcrumb from "../../../component/common/Breadcrumb";
+import Breadcrumb from "../../common/Breadcrumb";
 import BlogArea from "./BlogArea";
-import DocumentArea from "../../../component/common/DocumentArea";
+import DocumentArea from "../../common/DocumentArea";
 import FooterThree from "../../../layouts/footers/FooterThree";
 import HeaderThree from "../../../layouts/headers/HeaderThree";
 

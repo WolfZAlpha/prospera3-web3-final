@@ -19,11 +19,11 @@ const nextConfig = {
     return [
       {
         source: '/ico/:path*',
-        destination: 'http://localhost:3000/:path*',
+        destination: '/ico/:path*',
       },
       {
         source: '/desktop/:path*',
-        destination: 'http://localhost:3000/:path*',
+        destination: '/desktop/:path*',
       },
     ];
   },

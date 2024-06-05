@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BlogComment from "../blog-common/BlogComment";
-import BlogForm from "../../../component/forms/BlogForm";
+import BlogForm from "../../forms/BlogForm";
 import BlogSidebar from "../blog-common/BlogSidebar";
 
 import blogThumb_1 from "@/assets/img/blog/blog_details.jpg";

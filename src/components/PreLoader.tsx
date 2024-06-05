@@ -12,7 +12,7 @@ const PreLoader: React.FC<PreLoaderProps> = ({ onComplete }) => {
 
   const handleButtonClick = () => {
     const userResponse = prompt("DO YOU WISH TO PROSPER HUMAN?");
-    if (userResponse?.toLowerCase() === "yes") {
+    if (userResponse?.toLowerCase() === "yes" || userResponse === "Yes" || userResponse === "YES") {
       onComplete();
       router.push('/login');
     } else {

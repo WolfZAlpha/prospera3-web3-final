@@ -7,6 +7,11 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
+    if (router.pathname.startsWith('/ico') || router.pathname.startsWith('/desktop')) {
+      setLoading(false);
+      return;
+    }
+
     const timer = setTimeout(() => {
       setLoading(false);
       router.push('/login');
@@ -14,7 +19,6 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [router]);
 
-  // Prevent PreLoader from showing on subdomains
   if (router.pathname.startsWith('/ico') || router.pathname.startsWith('/desktop')) {
     return null;
   }

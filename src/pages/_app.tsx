@@ -1,38 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import store from '../store';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import PreLoader from '../components/PreLoader';
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    if (sessionStorage.getItem('preloaderCompleted')) {
-      setLoading(false);
-    } else {
-      setLoading(true);
+    const pathname = router.pathname;
+    console.log(`Current pathname: ${pathname}`);
+    if (pathname.startsWith('/ico') || pathname.startsWith('/desktop')) {
+      console.log('Skipping PreLoader for subdomain');
     }
   }, [router.pathname]);
 
-  const handlePreloaderComplete = () => {
-    sessionStorage.setItem('preloaderCompleted', 'true');
-    setLoading(false);
-  };
+  let SubdomainComponent = null;
+
+  if (router.pathname.startsWith('/ico')) {
+    SubdomainComponent = require('@/pages/[subdomain]/ico').default;
+  }
+
+  if (router.pathname.startsWith('/desktop')) {
+    SubdomainComponent = require('@/pages/[subdomain]/desktop').default;
+  }
 
   return (
     <Provider store={store}>
-      {loading ? (
-        <PreLoader onComplete={handlePreloaderComplete} />
-      ) : (
-        <Component {...pageProps} />
-      )}
+      {SubdomainComponent ? <SubdomainComponent {...pageProps} /> : <Component {...pageProps} />}
     </Provider>
   );
 };
